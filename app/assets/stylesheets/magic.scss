@@ -1,0 +1,70 @@
+// Place all the styles related to the magic controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  background-color: #2f2f2f !important;
+}
+.movie-page {
+  margin: 10rem 2rem;
+}
+.alphabetical-category {
+  color: white;
+  text-align: left;
+}
+.no-movies {
+  text-align: center;
+  color: white;
+}
+.movies {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+  .movie {
+    margin: 0 auto;
+    text-align: center;
+    transition: all .3s;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.03);
+    width: 100%;
+    height: 100%;
+    border: 1px solid #444444;
+    &:hover {
+      box-shadow: 0px 0px 0px 2px rgba(39, 0, 255, 0.16), 0px 0px 12px 6px rgba(236, 0, 0, 0.73);
+    }
+    a {
+      text-decoration: none !important;
+      color: white;
+      font-weight: initial;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    #play-image {
+      max-width: 150px;
+    }
+  }
+}
+
+#notification {
+  display: none;
+  /* height: 4%; */
+  width: 100%;
+  /* background-color: black; */
+  position: fixed;
+  /* top: 60px; */
+  /* opacity: 0.95; */
+  #message {
+    padding: 1rem;
+    margin-bottom: 2rem;
+    background-color: white;
+    text-align: center;
+    /* margin-top: 35%; */
+    font-weight: bolder;
+  }
+}
+
+// navbar
+.nav {
+  li { float: left }
+}

@@ -1,0 +1,7 @@
+var element = document.getElementById('play-pause-button');
+console.log(element.textContent.trim());
+if(element.textContent.trim() == 'Play') {
+  element.innerHTML = '<i class="glyphicon glyphicon-pause"></i> Pause';
+} else {
+  element.innerHTML = '<i class="glyphicon glyphicon-play"></i> Play';
+}

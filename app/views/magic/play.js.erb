@@ -1,0 +1,9 @@
+var element = document.getElementById('play-pause-button');
+element.innerHTML = '<i class="glyphicon glyphicon-pause"></i> Pause';
+
+$('#message').html('<%= j @message %>');
+$('#notification').fadeIn();
+
+setTimeout(function(){
+  $('#notification').fadeOut();
+}, 2500);

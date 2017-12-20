@@ -1,0 +1,1 @@
+CHROMECAST = ChromeCast.new

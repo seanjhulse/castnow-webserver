@@ -1,0 +1,7 @@
+var element = document.getElementById('sound-button');
+console.log(element.textContent.trim());
+if(element.textContent.trim() == 'Sound') {
+  element.innerHTML = '<i class="glyphicon glyphicon-volume-off"></i> Mute';
+} else {
+  element.innerHTML = '<i class="glyphicon glyphicon-volume-up"></i> Sound';
+}

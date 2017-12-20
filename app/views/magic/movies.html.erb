@@ -1,0 +1,25 @@
+<div id="notification">
+  <div id="message"></div>
+</div>
+
+<div class="movie-page">
+  <% if @movies.empty? %>
+    <h4 class="no-movies">No movies to play!</h4>
+  <% else %>
+    <div class="movies">
+      <% @movies.each_with_index do |movie, index| %>
+        <div class="movie">
+          <%= link_to play_path(index), method: :post, format: :js, remote: true, data: {confirm: "Are you sure?"} do %>
+            <% if @movie_images[index] %>
+              <%= image_tag(@movie_images[index], id: 'play-image') %>
+            <% else %>
+              <%= image_tag("/movie-play-button.png", id: 'play-image') %>
+            <% end %>
+            <br/>
+            <%= readable(movie) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+<% end %>
+</div>
