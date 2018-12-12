@@ -11,7 +11,7 @@ class MagicController < ApplicationController
     @movie_images = []
     @movies.each_with_index do |movie|
       # create request
-      request = @baseURI + readable(movie) + @limits
+      request = @baseURI + readable(movie).tr("0-9", "").gsub(" ", "%20") + @limits
 
       # cache response native Rails caching client
       Rails.cache.fetch(request, :expires => 3.days) do
@@ -74,7 +74,7 @@ class MagicController < ApplicationController
 
   private
   def get_movies
-    @home_path = "/media/pi/ESCAPEPOD/"
+    @home_path = "/home/sean/Videos/"
     @movies = Dir[@home_path + '*'].sort_by!{ |m| m.downcase }
   end
   def load_chromecast
