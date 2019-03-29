@@ -74,9 +74,10 @@ class MagicController < ApplicationController
 
   private
   def get_movies
-    @home_path = "/home/sean/Videos/"
-    @movies = Dir[@home_path + '*'].sort_by!{ |m| m.downcase }
+    @home_path = current_user.videos_path
+    @movies = Dir[@home_path + '/*/'].sort_by!{ |m| m.downcase }
   end
+  
   def load_chromecast
     # initialized in /initialiers/chrome_cast.rb
     @chromecast = CHROMECAST

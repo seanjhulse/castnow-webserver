@@ -1,0 +1,6 @@
+<p>Choose a profile or <%= link_to "create one", users_new_path %></p>
+<% if @users.empty? %>
+	<%= render partial: 'no_users.html.erb' %>
+<% else %>
+	<%= render partial: 'users.html.erb', locals: { users: @users } %>
+<% end%>
