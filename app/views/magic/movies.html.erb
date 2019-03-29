@@ -4,7 +4,6 @@
 
 <div class="movie-page">
   <% if @movies.empty? %>
-    <h4 class="no-movies">No movies to play!</h4>
   <% else %>
     <div class="movies">
       <% @movies.each_with_index do |movie, index| %>

@@ -1,4 +1,4 @@
-<p>Choose a profile or <%= link_to "create one", users_new_path %></p>
+<p>Choose a profile or <%= link_to "create one", new_user_path %></p>
 <% if @users.empty? %>
 	<%= render partial: 'no_users.html.erb' %>
 <% else %>

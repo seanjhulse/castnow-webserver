@@ -9,5 +9,12 @@ module ApplicationHelper
     else
       nil
     end
-  end
+	end
+	
+	'''
+		Determines if an action is currently active for the navbar links
+	'''
+	def is_active(action)
+		params[:action] == action ? "active" : nil
+	end
 end

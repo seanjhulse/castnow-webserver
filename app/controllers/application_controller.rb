@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     video_paths = []
     if File.exist?("#{Rails.root}/log/video_paths.txt")
       File.open("#{Rails.root}/log/video_paths.txt", "r").each_line do |line|
-        video_paths.push(line);
+        video_paths.push(line.strip);
       end
     end
     video_paths
@@ -29,10 +29,8 @@ class ApplicationController < ActionController::Base
 
   private
   def authenticate
-    if current_user
-      redirect_to root_path
+    if !current_user
+      redirect_to users_path
     end
-
-    redirect_to users_path
   end
 end

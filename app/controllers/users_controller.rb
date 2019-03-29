@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, except: [:index, :new, :create]
-  before_action :authenticate, except: [:index, :new, :create]
+  before_action :authenticate, except: [:index, :new, :create, :login]
+  before_action :set_user, except: [:index, :new, :create, :logout]
 
   def index
     @users = User.all
@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @video_paths = video_paths
   end
 
   def create
@@ -20,13 +21,16 @@ class UsersController < ApplicationController
       session[:current_user_id] = @user.id
       redirect_to root_path
     else
-      flash[:notice] = @user.errors.messages
       redirect_back fallback_location: root_path
     end
   end
 
   def update
-    @user.update(user_params)
+    if @user.update(user_params)
+      redirect_to root_path
+    else
+      redirect_back fallback_location: root_path
+    end
   end
 
   def destroy
@@ -36,10 +40,12 @@ class UsersController < ApplicationController
 
   def login
     session[:current_user_id] = @user.id
+    redirect_to root_path
   end
 
   def logout
     session[:current_user_id] = nil
+    redirect_to users_path
   end
 
   private

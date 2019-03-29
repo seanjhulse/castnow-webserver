@@ -1,4 +1,10 @@
 <nav id="main-navbar">
-	<a href="/">Home</a>
-	<a href='<%= current_user ? "/users/#{current_user.id}/logout" : "/login" %>'><%= current_user ? "Logout" : "Login" %></a>
+	<a href="/" class="<%= is_active('movies') ? 'active' : '' %>">Movies</a>
+	<% if current_user %>
+		<%= link_to 'Profile', edit_user_path(current_user), class: is_active('edit') ? "active" : nil %>
+		<%= link_to 'Logout', users_logout_path, method: :post %>
+		<span>Hello <%= current_user.name %>!</span>
+	<% else %>
+		<%= link_to 'Login', users_path, method: :get %>
+	<% end %>
 </nav>

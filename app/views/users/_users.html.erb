@@ -1,5 +1,5 @@
 <ul id="users">
 <% users.each do |user| %>
-	<li id="user-<%= user.id %>"><%= user.name %></li>
+	<li id="user-<%= user.id %>"><%= link_to user.name, users_login_path(user.id), class: "user-login-link", method: :post %></li>
 <% end %>
 </ul>
