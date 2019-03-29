@@ -1,0 +1,4 @@
+/path/to/a/drive
+/path/to/b/drive
+/path/to/c/drive
+/path/to/d/drive

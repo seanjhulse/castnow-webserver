@@ -5,29 +5,6 @@ class MagicController < ApplicationController
   include MagicHelper
 
   def movies
-    @baseURI = 'https://api.themoviedb.org/3/search/movie?api_key=' + ENV['themoviedb_api_key'] + '&language=en-US&query='
-    @limits = '&page=1&include_adult=false'
-
-    @movie_images = []
-    @movies.each_with_index do |movie|
-      # create request
-      request = @baseURI + readable(movie).tr("0-9", "").gsub(" ", "%20") + @limits
-
-      # cache response native Rails caching client
-      Rails.cache.fetch(request, :expires => 3.days) do
-        response = HTTParty.get(request)
-        if response.success?
-          results = response['results'][0]
-          unless results.nil?
-            poster_path = results['poster_path']
-            poster_url = 'http://image.tmdb.org/t/p/w185' + poster_path
-            @movie_images.push(poster_url)
-          else
-            @movie_images.push(nil)
-          end
-        end
-      end
-    end
   end
 
   def play

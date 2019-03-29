@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'httparty'
 gem 'jquery-rails'
 gem 'rainbow' # logs messages in color
-gem 'whenever'
+gem 'whenever', require: false
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

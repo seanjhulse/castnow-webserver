@@ -1,11 +1,11 @@
 <%= form_for @user do |form| %>
 	<div>
 	<%= form.label "Your name" %>
-	<%= form.text_field :name, required: true, minlength: 6 %>
+	<%= form.text_field :name, placeholder: "Your username", required: true, minlength: 4 %>
 	</div>
 	<div>
 	<%= form.label "I dynamically find shared local network drives. Is yours on this list? No? Try to share it and reload the page." %>
-	<%= form.select :videos_path, @video_paths, { include_blank: true } %>
+	<%= form.select :videos_path, @video_paths, { include_blank: "Pick a network drive" } %>
 	</div>
 	<%= form.submit "Submit" %>
 <% end %>

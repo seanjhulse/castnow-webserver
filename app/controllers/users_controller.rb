@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @video_paths = ["/these/are/test/paths", "/pay/them/no/mind", "/home/sean/videos/"]
+    @video_paths = video_paths
   end
 
   def edit
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:current_user_id] = @user.id
-      redirect_to movies_path
+      redirect_to root_path
     else
       flash[:notice] = @user.errors.messages
       redirect_back fallback_location: root_path
