@@ -1,0 +1,4 @@
+<nav id="main-navbar">
+	<a href="/">Home</a>
+	<a href='<%= current_user ? "/users/#{current_user.id}/logout" : "/login" %>'><%= current_user ? "Logout" : "Login" %></a>
+</nav>
