@@ -8,11 +8,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @video_paths = video_paths
   end
 
   def edit
-    @video_paths = video_paths
   end
 
   def create

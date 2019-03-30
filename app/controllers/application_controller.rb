@@ -13,20 +13,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  '''
-		Returns an array of known network shared drives from this file located in logs.
-		The file is updated with a cron job run by the `whenever` gem.
-	'''
-	def video_paths
-    video_paths = []
-    if File.exist?("#{Rails.root}/log/video_paths.txt")
-      File.open("#{Rails.root}/log/video_paths.txt", "r").each_line do |line|
-        video_paths.push(line.strip);
-      end
-    end
-    video_paths
-  end
-
   private
   def authenticate
     if !current_user
