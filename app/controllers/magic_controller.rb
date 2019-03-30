@@ -2,6 +2,7 @@ class MagicController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate
   before_action :get_movies
+  before_action :get_shows
   before_action :load_chromecast
   include MagicHelper
 
@@ -15,7 +16,6 @@ class MagicController < ApplicationController
     # play movie on instance
     @chromecast.play(path)
     
-    @message = "Loading your movie"
     respond_to do |format|
       format.js { render 'play.js.erb'}
     end
@@ -52,7 +52,11 @@ class MagicController < ApplicationController
 
   private
   def get_movies
-    @movies = Dir[videos_path + '/*'].sort_by!{ |m| m.downcase }
+    @movies = Dir[videos_path + '**/*.*'].sort_by!{ |m| m.downcase }
+  end
+
+  def get_shows
+    @shows = Dir[videos_path + '**/*/'].sort_by!{ |m| m.downcase }
   end
   
   def load_chromecast

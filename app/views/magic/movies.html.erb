@@ -1,17 +1,27 @@
-<div id="notification">
-  <div id="message"></div>
-</div>
-
 <div class="movie-page">
-  <% if @movies.empty? %>
-  <% else %>
+  <% unless @movies.empty? %>
+    <h1>Movies</h1>
     <div class="movies">
       <% @movies.each_with_index do |movie, index| %>
         <% movie_data = movie_json(readable(movie)) %>
         <div class="movie">
           <%= image_tag movie_poster(movie_data), class: "movie-poster" %>
+          <div class="movie-play-button-container">
+            <%= fa_icon "play", class: "movie-play-button" %>
+          </div>
         </div>
       <% end %>
     </div>
-<% end %>
+  <% end %>
+  <% unless @shows.empty? %>
+    <h1>Shows</h1>
+    <div class="shows">
+      <% @shows.each_with_index do |show, index| %>
+        <% show_data = show_json(readable(show)) %>
+        <div class="show">
+          <%= image_tag movie_poster(show_data), class: "movie-poster" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
