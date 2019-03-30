@@ -18,9 +18,15 @@
     <div class="shows">
       <% @shows.each_with_index do |show, index| %>
         <% show_data = show_json(readable(show)) %>
-        <div class="show">
-          <%= image_tag movie_poster(show_data), class: "movie-poster" %>
-        </div>
+        <% if show_data %>
+          <div class="show">
+            <%= link_to episodes_path(show) do %>
+              <%= image_tag movie_poster(show_data), class: "movie-poster" %>
+            <% end %>
+          </div>
+        <% else %>
+          Error in fetching show data
+        <% end %>
       <% end %>
     </div>
   <% end %>

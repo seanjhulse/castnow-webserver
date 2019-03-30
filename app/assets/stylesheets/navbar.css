@@ -1,0 +1,40 @@
+#main-navbar {
+    width: 100%;
+    background: #333;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+}
+@media (max-width: 640px) {
+	#main-navbar {
+		flex-direction: column;
+	}
+	.navbar-link {
+		width: 100%;
+		text-align: center;
+	}
+	.welcome-message {
+		display: none;
+	}
+}
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+}
+.navbar-link:hover {
+    text-decoration: underline;
+}
+.navbar-link.active {
+    background: #c5050c;
+}
+@media (min-width: 640px) {
+    .navbar-login-logout {
+        margin-left: auto;
+    }
+}
+.welcome-message:hover {
+	text-decoration: none;
+}

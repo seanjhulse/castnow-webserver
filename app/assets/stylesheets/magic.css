@@ -1,37 +1,43 @@
 .movies {
-        display: flex;
-        flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+}
+@media (max-width: 640px) {
+	.movies {
+		justify-content: center;
+
+	}
 }
 .movie {
-        position: relative;
-        margin: 25px;
+    position: relative;
+    margin: 25px;
 }
 .movie:hover {
-        cursor: pointer;
+    cursor: pointer;
 }
 .movie:hover .movie-play-button {
-        opacity: 0.65;
+    opacity: 0.65;
 }
 .movie:hover .movie-play-button:hover {
-        opacity: 1;
+    opacity: 1;
 }
 .movie-play-button-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .movie-play-button {
-        color: white;
-        opacity: 0;
-        font-size: 60px;
+    color: white;
+    opacity: 0;
+    font-size: 60px;
 }
 
 .shows {
-        display: flex;
-        flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 .show {
-        position: relative;
-        margin: 25px;
+    position: relative;
+    margin: 25px;
 }

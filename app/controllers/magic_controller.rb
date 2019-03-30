@@ -9,6 +9,12 @@ class MagicController < ApplicationController
   def movies
   end
 
+  def episodes
+    show_path = params[:show].to_s
+    @show = show_json(readable(show_path))
+    @seasons = get_seasons(show_path)    
+  end
+
   def play
     id = params[:id].to_i
     path = @movies[id].to_s
@@ -57,6 +63,10 @@ class MagicController < ApplicationController
 
   def get_shows
     @shows = Dir[videos_path + '**/*/'].sort_by!{ |m| m.downcase }
+  end
+
+  def get_seasons(show)
+    Dir["#{show}**/*/"].sort_by!{ |m| m.downcase }
   end
   
   def load_chromecast

@@ -14,3 +14,16 @@
  *= require_tree .
  *= require_self
  */
+body {
+    margin: 0;
+	font-family: 'Lato', sans-serif;
+	color: white;
+	background: #191919;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 25px;
+}

@@ -1,0 +1,40 @@
+.episodes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.episode {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+}
+.episode-info-container {
+    max-width: 640px;
+}
+.episode-poster {
+    margin: 25px;
+}
+.episode-poster-container {
+    position: relative;
+}
+.episode-poster-container:hover {
+    cursor: pointer;
+}
+.episode-poster-container:hover .episode-play-button {
+    opacity: 0.5;
+}
+.episode-poster-container:hover .episode-play-button:hover {
+    opacity: 1;
+}
+.episode-play-button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.episode-play-button {
+    color: white;
+    font-size: 40px;
+    opacity: 0;
+}

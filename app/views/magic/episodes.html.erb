@@ -1,0 +1,27 @@
+<div class="show-page">
+  <h1><%= show_title(@show) %></h1>
+  <% unless @seasons.empty? %>
+    <div class="seasons">
+      <% @seasons.each_with_index do |season, index| %>
+        <h2><%= "Season #{readable(season)}" %></h2>
+        <div class="episodes">
+          <% episodes(season).each do |episode| %>
+            <div class="episode">
+              <% episode_data = episode_json(show_id(@show), readable(season), readable(episode)) %>
+              <div class="episode-poster-container">
+                <%= image_tag episode_poster(episode_data), class: "episode-poster" %>
+                <div class="episode-play-button-container">
+                  <%= fa_icon "play", class: "episode-play-button" %>
+                </div>
+              </div>
+              <div class="episode-info-container">
+                <h2 class="episode-title"><%= episode_title(episode_data) %></h2>
+                <p class="episode-description"><%= episode_description(episode_data) %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
