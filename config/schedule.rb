@@ -18,10 +18,3 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-require File.expand_path(File.dirname(__FILE__) + "/environment")
-
-set :output, {error: "#{Rails.root}/log/cron.log", standard: "#{Rails.root}/log/video_paths.txt"}
-
-every 1.minute do
-	command "cat /dev/null >| #{Rails.root}/log/video_paths.txt && #{Rails.root}/bin/refresh_network_share.sh"
-end
