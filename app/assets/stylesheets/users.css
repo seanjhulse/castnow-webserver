@@ -1,0 +1,25 @@
+.users {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: center;
+	list-style: none;
+}
+.user {
+	margin: 25px;
+}
+.user-icon {
+	color: white;
+	font-size: 80px;
+}
+.user-icon:hover {
+	color: #c5050c;
+}
+.user-login-link {
+	text-decoration: none;
+}
+.user-name {
+	font-size: 18px;
+	display: block;
+}
