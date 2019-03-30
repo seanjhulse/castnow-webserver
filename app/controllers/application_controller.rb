@@ -13,6 +13,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  '''
+    Grabs the videos_path from the configuration file
+  '''
+  def videos_path
+    YAML.load_file("#{Rails.root}/config/config.yml")["videos_path"]
+  end
+
+  '''
+    Overwrites the existing videos_path config
+  '''
+  def update_videos_path(new_videos_path)
+    configs = YAML.load_file "#{Rails.root}/config/config.yml"
+    configs["videos_path"] = new_videos_path
+    File.open("#{Rails.root}/config/config.yml", 'w') { |f| YAML.dump(configs, f) }
+  end
+
   private
   def authenticate
     if !current_user

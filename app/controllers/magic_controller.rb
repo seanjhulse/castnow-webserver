@@ -52,8 +52,7 @@ class MagicController < ApplicationController
 
   private
   def get_movies
-    @home_path = current_user.videos_path
-    @movies = Dir[@home_path + '/*'].sort_by!{ |m| m.downcase }
+    @movies = Dir[videos_path + '/*'].sort_by!{ |m| m.downcase }
   end
   
   def load_chromecast

@@ -7,8 +7,9 @@
   <% else %>
     <div class="movies">
       <% @movies.each_with_index do |movie, index| %>
+        <% movie_data = movie_json(readable(movie)) %>
         <div class="movie">
-          <%= movie %>
+          <%= image_tag movie_poster(movie_data), class: "movie-poster" %>
         </div>
       <% end %>
     </div>
