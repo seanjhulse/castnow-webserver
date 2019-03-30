@@ -24,6 +24,9 @@
     text-decoration: none;
     padding: 15px 20px;
 }
+.navbar-icon {
+	margin: 0 10px;
+}
 .navbar-link:hover {
     text-decoration: underline;
 }

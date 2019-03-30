@@ -1,10 +1,14 @@
 <nav id="main-navbar">
 	<% if current_user %>
 		<span class="navbar-link welcome-message">Hello <%= current_user.name %>!</span>
-		<a href="/" class="<%= is_active('movies') ? 'active navbar-link' : 'navbar-link' %>">Movies</a>
-		<%= link_to 'Profile', edit_user_path(current_user), class: is_active('edit') ? "active navbar-link" : "navbar-link" %>		
-		<%= link_to 'Logout', users_logout_path, method: :post, class: "navbar-link navbar-login-logout" %>
+		<a href="/" class="<%= is_active('movies') ? 'active navbar-link' : 'navbar-link' %>">Shows and Movies<%= fa_icon 'film', class: "navbar-icon" %></a>
+		<%= link_to edit_user_path(current_user), class: is_active('edit') ? "active navbar-link" : "navbar-link" do %>
+			Profile<%= fa_icon 'user', class: "navbar-icon" %>
+		<% end %>
+		<%= link_to users_logout_path, method: :post, class: "navbar-link navbar-login-logout" do %>
+			Logout <%= fa_icon 'sign-out', class: "navbar-icon" %>
+		<% end %>
 	<% else %>
-		<span class="navbar-link welcome-message">Login to watch!</span>
+		<span class="navbar-link welcome-message">Login to watch</span>
 	<% end %>
 </nav>

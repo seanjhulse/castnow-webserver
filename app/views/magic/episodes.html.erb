@@ -3,7 +3,7 @@
   <% unless @seasons.empty? %>
     <div class="seasons">
       <% @seasons.each_with_index do |season, index| %>
-        <h2><%= "Season #{readable(season)}" %></h2>
+        <h2 class="season-title"><%= "Season #{readable(season)}" %></h2>
         <div class="episodes">
           <% episodes(season).each do |episode| %>
             <div class="episode">
@@ -17,6 +17,7 @@
               <div class="episode-info-container">
                 <h2 class="episode-title"><%= episode_title(episode_data) %></h2>
                 <p class="episode-description"><%= episode_description(episode_data) %></p>
+                <h2 class="episode-release-date"><%= Date.parse(episode_release_date(episode_data)).strftime('%B %e, %Y') %></h2>
               </div>
             </div>
           <% end %>
