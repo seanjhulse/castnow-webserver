@@ -1,5 +1,6 @@
 class MagicController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :authenticate
   before_action :get_movies
   before_action :load_chromecast
   include MagicHelper
