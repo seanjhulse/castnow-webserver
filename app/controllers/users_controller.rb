@@ -51,6 +51,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   def user_params
-    params.require(:user).permit(:id, :name, :videos_path)
+    params.require(:user).permit(:id, :name)
   end
 end
