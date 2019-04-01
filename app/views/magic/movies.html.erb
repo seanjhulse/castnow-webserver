@@ -1,33 +1,37 @@
 <div class="movie-page">
+  <h1>Movies</h1>
   <% unless @movies.empty? %>
-    <h1>Movies</h1>
     <div class="movies">
       <% @movies.each_with_index do |movie, index| %>
         <% movie_data = movie_json(readable(movie)) %>
-        <div class="movie">
-          <%= image_tag movie_poster(movie_data), class: "movie-poster" %>
-          <div class="movie-play-button-container">
-            <%= fa_icon "play", class: "movie-play-button" %>
+        <% if movie_data and movie_data['results'] %>
+          <div class="movie">
+            <%= image_tag movie_poster(movie_data), class: "movie-poster" %>
+            <div class="movie-play-button-container">
+              <%= fa_icon "play", class: "movie-play-button" %>
+            </div>
           </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-  <% unless @shows.empty? %>
-    <h1>Shows</h1>
-    <div class="shows">
-      <% @shows.each_with_index do |show, index| %>
-        <% show_data = show_json(readable(show)) %>
-        <% if show_data %>
-          <div class="show">
-            <%= link_to episodes_path(show) do %>
-              <%= image_tag movie_poster(show_data), class: "movie-poster" %>
-            <% end %>
-          </div>
-        <% else %>
-          Error in fetching show data
         <% end %>
       <% end %>
     </div>
+  <% else %>
+    <p>Sorry, no movies found.</p>
+  <% end %>
+  <h1>Shows</h1>
+  <% unless @shows.empty? %>
+    <div class="shows">
+      <% @shows.each_with_index do |show, index| %>
+        <% show_data = show_json(readable(show)) %>
+        <% if show_data and show_data['results'] %>
+          <div class="show">
+            <%= link_to episodes_path(show) do %>
+              <%= image_tag show_poster(show_data), class: "movie-poster" %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Sorry, no shows found.</p>
   <% end %>
 </div>

@@ -11,7 +11,7 @@ module MagicHelper
 
     response = HTTParty.get(url)
     movie = JSON.parse(response.body)
-    return nil if movie["results"].empty?
+    return nil if movie.nil?
 
     Rails.cache.redis.set(url, response.body)
     return movie
@@ -25,7 +25,7 @@ module MagicHelper
 
     response = HTTParty.get(url)
     show = JSON.parse(response.body)
-    return nil if show["results"].empty?
+    return nil if show.nil?
     
     Rails.cache.redis.set(url, response.body)
     return show
