@@ -12,7 +12,7 @@ class MagicController < ApplicationController
   def episodes
     show_path = params[:show].to_s
     @show = show_json(readable(show_path))
-    @seasons = get_seasons(show_path)    
+    @seasons = get_seasons(show_path)
   end
 
   def play
@@ -54,7 +54,6 @@ class MagicController < ApplicationController
     # seek forwards or backwards
     @chromecast.seek(params[:direction])
   end
-
 
   private
   def get_movies
