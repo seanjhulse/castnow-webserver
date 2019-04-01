@@ -30,3 +30,38 @@ main {
 a {
 	color: white;
 }
+input {
+	display: block;
+    border: none;
+    padding: 3px 5px;
+    font-size: 16px;
+    border-radius: 0px;
+    border-bottom: 1px solid #c5050c;
+    margin: 10px 0;
+    background: transparent;
+    box-shadow: none;
+    color: white;
+}
+input:focus {
+	outline: none;
+	border: none;
+    border-bottom: 1px solid red;
+}
+.button {
+	display: block;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 2px solid #6f0004;
+    margin: 10px 0;
+    color: white;
+    background: #c5050c;
+    text-transform: capitalize;
+    font-size: 12px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+.button:hover {
+	cursor: pointer;
+	background: #6f0004;
+}

@@ -3,5 +3,5 @@
 	<%= form.label "Your name" %>
 	<%= form.text_field :name, placeholder: "Your username", required: true, minlength: 4, value: user.name %>
 	</div>
-	<%= form.submit "Submit" %>
+	<%= form.submit "Submit", class: "button" %>
 <% end %>

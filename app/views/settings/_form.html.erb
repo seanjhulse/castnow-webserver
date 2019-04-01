@@ -1,0 +1,5 @@
+Where are the videos located on your hard drive?
+<%= form_for :settings, controller: :settings, action: :update, method: :put do |form| %>
+	<%= form.text_field :videos_path, value: videos_path %>
+	<%= form.submit "Submit", class: 'button' %>
+<% end %>

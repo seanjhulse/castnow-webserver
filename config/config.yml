@@ -1,1 +1,2 @@
-videos_path: /home/sean/videos
+---
+videos_path: "/home/sean/videos"
