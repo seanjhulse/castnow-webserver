@@ -17,7 +17,7 @@ class MagicController < ApplicationController
 
   def play
     # find an existing video record
-    @video = current_user.videos.where(path: params[:path])
+    @video = current_user.videos.where(path: params[:path]).first
     if @video.nil?
       # create a new one if DNE
       current_user.videos << Video.create(video_params)

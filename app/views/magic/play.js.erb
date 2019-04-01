@@ -1,9 +1,9 @@
-var element = document.getElementById('play-pause-button');
-element.innerHTML = '<i class="glyphicon glyphicon-pause"></i> Pause';
+let image = document.getElementById('player-image');
+let player = document.getElementById('player');
+let pauseButton = document.getElementById('player-pause-button');
+let playButton = document.getElementById('player-play-button');
 
-$('#message').html('<%= j @message %>');
-$('#notification').fadeIn();
-
-setTimeout(function(){
-  $('#notification').fadeOut();
-}, 2500);
+image.src = <%= j @image %>;
+player.classList.add('active');
+pauseButton.classList.add('active');
+playButton.classList.remove('active');

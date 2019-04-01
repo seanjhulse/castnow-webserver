@@ -1,7 +1,10 @@
-var element = document.getElementById('play-pause-button');
-console.log(element.textContent.trim());
-if(element.textContent.trim() == 'Play') {
-  element.innerHTML = '<i class="glyphicon glyphicon-pause"></i> Pause';
+let pauseButton = document.getElementById('player-pause-button');
+let playButton = document.getElementById('player-play-button');
+
+if (pauseButton.classList.contains('active')) {
+  pauseButton.classList.remove('active');
+  playButton.classList.add('active');
 } else {
-  element.innerHTML = '<i class="glyphicon glyphicon-play"></i> Play';
+  playButton.classList.remove('active');
+  pauseButton.classList.add('active');
 }

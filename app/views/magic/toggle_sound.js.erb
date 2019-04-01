@@ -1,7 +1,10 @@
-var element = document.getElementById('sound-button');
-console.log(element.textContent.trim());
-if(element.textContent.trim() == 'Sound') {
-  element.innerHTML = '<i class="glyphicon glyphicon-volume-off"></i> Mute';
+let volumeUpButton = document.getElementById('player-volume-up');
+let volumnMuteButton = document.getElementById('player-volume-mute');
+
+if (volumeUpButton.classList.contains('active')) {
+  volumeUpButton.classList.remove('active');
+  volumnMuteButton.classList.add('active');
 } else {
-  element.innerHTML = '<i class="glyphicon glyphicon-volume-up"></i> Sound';
+  volumnMuteButton.classList.remove('active');
+  volumeUpButton.classList.add('active');
 }

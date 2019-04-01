@@ -1,0 +1,30 @@
+<div id="player">
+	<div class="player-close-button">
+		<%= link_to stop_path, remote: true do %>
+			<%= fa_icon "times_circle "%>
+		<% end %>
+	</div>
+	<img class="player-image" id="player-image" src="" />
+	<div class="player-buttons">
+		<div class="player-button active" id="player-pause-button">
+			<%= link_to play_pause_path, remote: true do %>
+				<%= fa_icon "pause", class: "pause-button", id: "pause-button" %>
+			<% end %>
+		</div>
+		<div class="player-button" id="player-play-button">
+			<%= link_to play_pause_path, remote: true do %>
+				<%= fa_icon "play", class: "play-button", id: "play-button" %>
+			<% end %>
+		</div>
+		<div class="player-button" id="player-volume-up">
+			<%= link_to toggle_sound_path, remote: true do %>
+				<%= fa_icon 'volume-up' %>
+			<% end %>
+		<div>
+		<div class="player-button active" id="player-volume-mute">
+			<%= link_to toggle_sound_path, remote: true do %>
+				<%= fa_icon 'volume-mute' %>
+			<% end %>
+		</div>
+	</div>
+</div>

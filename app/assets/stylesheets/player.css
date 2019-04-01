@@ -1,0 +1,45 @@
+#player {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	height: 100%;
+	width: 100%;
+	background: #282828;
+	z-index: -999;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+#player.active {
+	opacity: 1;
+	z-index: 999;
+}
+.player-image {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.player-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 50px;
+	background: black;
+}
+.player-button {
+	color: white;
+	display: none;
+}
+.player-button.active {
+	display: block;
+}
+.player-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 1rem;
+	color: white;
+}
