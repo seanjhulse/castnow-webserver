@@ -16,11 +16,15 @@ class MagicController < ApplicationController
   end
 
   def play
-    id = params[:id].to_i
-    path = @movies[id].to_s
+    # find an existing video record
+    @video = current_user.videos.where(path: params[:path])
+    if @video.nil?
+      # create a new one if DNE
+      current_user.videos << Video.create(video_params)
+    end
 
     # play movie on instance
-    @chromecast.play(path)
+    @chromecast.play(path, @video.seek)
     
     respond_to do |format|
       format.js { render 'play.js.erb'}
@@ -55,6 +59,22 @@ class MagicController < ApplicationController
     @chromecast.seek(params[:direction])
   end
 
+  # gets the time and updates our video row with the new time (so we can track usage of video)
+  def time
+    # find an existing video record
+    @video = current_user.videos.where(path: params[:path]).first
+    if @video.nil?
+      # create a new record if DNE
+      current_user.videos << Video.create(video_params)
+    end
+    
+    # get the time and update it
+    time = @chromecast.time
+    unless time.nil?
+      @video.update(seek: @chromecast.time)
+    end
+  end
+
   private
   def get_movies
     @movies = Dir[videos_path + '**/*.*'].sort_by!{ |m| m.downcase }
@@ -66,6 +86,10 @@ class MagicController < ApplicationController
 
   def get_seasons(show)
     Dir["#{show}**/*/"].sort_by!{ |m| m.downcase }
+  end
+
+  def video_params
+    params.require(:video).permit(:id, :path, :seek, :user_id)
   end
   
   def load_chromecast

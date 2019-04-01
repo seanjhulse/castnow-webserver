@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  path: MyString
+  seek: 2019-04-01 12:38:59
+  user: one
+
+two:
+  path: MyString
+  seek: 2019-04-01 12:38:59
+  user: two

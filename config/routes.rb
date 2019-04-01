@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'magic#movies'
-  post '/play/:id' => 'magic#play', as: 'play'
+  post '/play/:path' => 'magic#play', as: 'play'
   get '/pause/' => 'magic#play_pause', as: 'play_pause'
   get '/stop' => 'magic#stop', as: 'stop'
   get '/seek/:direction' => 'magic#seek', as: 'seek'
@@ -15,4 +15,5 @@ Rails.application.routes.draw do
 
   get '/settings' => 'settings#edit', as: 'settings'
   put '/settings' => 'settings#update', as: 'settings_update'
+
 end
