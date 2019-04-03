@@ -3,77 +3,123 @@ class ChromeCast
   require 'open3'
 
   def initialize
-    @playing = false
-	@time = nil
-	@path = nil
+    @time = nil
+    @path = nil
+    @volume = 0
+    @delta = 10
+    @duration = 10
+    @status = nil
   end
 
   # start video from path
-  def play(path, time=nil)
-	return if path == @path
-    @playing = true
-	@path = path
+  def cast(path)
+    # ignore if someone requests the same film
+    return if path == @path
+    @path = path
 
-	Open3.popen2("catt cast #{path}")
-	Rails.logger.debug(Rainbow("Castnow is loading #{path}...").orange)
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt cast #{path}")
+    Rails.logger.debug(Rainbow("Castnow is loading #{path}").orange)
+    Process.wait(wait_thr[:pid])
+    Rails.logger.debug(Rainbow("Castnow has finished loading").blue)
+    stdin.close
+    stdout.close
   end
-  
+
   def playing
-	@playing
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt status")
+    status = stdout.read
+    stdin.close
+    stdout.close
   end
 
   def path
-	@path
+    @path
   end
 
-  def toggle
-	if @playing
-		Open3.popen2("catt play")
-	else
-		Open3.popen2("catt pause")
-	end
-    # toggle playing state
-    @playing = !@playing
-
-    Rails.logger.debug(Rainbow("Toggle playing state to #{@playing}").blue)
+  def play
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt play")
+    Rails.logger.debug(Rainbow("Resuming").blue)
+    stdin.close
+    stdout.close
   end
 
-  def toggle_sound
-	Open3.popen2("catt volume 0")
-	Rails.logger.debug(Rainbow("Toggle sound state...").blue)
+  def pause
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt pause")
+    Rails.logger.debug(Rainbow("Pausing").blue)
+    stdin.close
+    stdout.close
   end
 
-  # stop playing the current video
+  def sound_off
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt volume 0")
+    Rails.logger.debug(Rainbow("Turn sound off").blue)
+    stdin.close
+    stdout.close
+  end
+
+  def sound_on
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt volume #{@volume}")
+    Rails.logger.debug(Rainbow("Turn sound on").blue)
+    stdin.close
+    stdout.close
+  end
+
+  def sound_down
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt volumedown #{@volume > 0 ? @delta : 0}")
+    stdin.close
+    stdout.close
+  end
+
+  def sound_up
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt volumeup #{@volume < 100 ? @delta : 0}")
+    stdin.close
+    stdout.close
+  end
+
   def stop
-	Open3.popen2("catt stop")
-
-	# set playing state to false
-	@playing = false
-	@path = false
-    Rails.logger.debug(Rainbow("Attempting to stop video...").orange)
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt stop")
+    @path = nil
+    Rails.logger.debug(Rainbow("Stopping the video").orange)
+    stdin.close
+    stdout.close
   end
 
-  def seek(direction)
-    if(direction == 'left') 
-      @command = ['screen', '-S', 'cast_session', '-X', 'stuff', "$'\e[D'"]
-    else
-      @command = ['screen', '-S', 'cast_session', '-X', 'stuff', "$'\e[C'"]
-    end
+  def manual_seek(direction)
+    direction == "ffwd" ? ffwd : rewind
+  end
 
-    Rails.logger.debug(Rainbow("Skipping #{direction}...").orange)
+  def seek(time)
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt seek #{time}")
+    stdin.close
+    stdout.close
+  end
+
+  def ffwd
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt ffwd #{@duration}")
+    stdin.close
+    stdout.close
+  end
+
+  def rewind
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt rewind #{@duration}")
+    stdin.close
+    stdout.close
   end
 
   def format_time(time)
-    return "00:00:00" unless time.nil?
-    return time.strftime('%H:%M:%S')
+    return "00:00:00" unless time
+    return Time.at(time).utc.strftime("%H:%M:%S")
   end
 
-  # forks a new background process to set the new time of the cast session
-  # and returns that time to the user
+  # grab time from catt
   def time
-	i, output = Open3.popen2("catt info")
-	p output.gets
-	return @time
+    stdin, stdout, stderr, wait_thr = Open3.popen3("catt info")
+    time_in_sec = stdout.read.split(":")[-1].gsub(" ", "").chomp.to_f
+    @time = format_time(time_in_sec)
+
+    stdin.close
+    stdout.close
+    return @time
   end
 
 end

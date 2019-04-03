@@ -15,34 +15,56 @@ class MagicController < ApplicationController
     @seasons = get_seasons(show_path)
   end
 
-  def play
+  def cast
     # find an existing video record
-	@video = current_user.videos.where(title: params[:title]).first
-	@poster = params[:video][:poster]
-    if @video.nil?
-	  # create a new one if DNE
-	  @video = Video.create(video_params)
-      current_user.videos << @video
-    end
+    @video = current_user.videos.where(title: params[:title]).first_or_create
+    @poster = params[:video][:poster]
 
-	# play movie on instance
-    @chromecast.play(@video.path, @video.seek)
+  	# play movie on instance
+    @chromecast.cast(@video.path, @video.seek)
     
     respond_to do |format|
       format.js { render 'play.js.erb'}
     end
   end
 
-  def play_pause
-    # toggle play and pause state
-    @chromecast.toggle
+  def play
+    @chromecast.play
     respond_to do |format|
       format.js { render 'toggle.js.erb'}
     end
   end
 
-  def sound_toggle
-    @chromecast.toggle_sound
+  def pause
+    @chromecast.pause
+    respond_to do |format|
+      format.js { render 'toggle.js.erb'}
+    end
+  end
+
+  def sound_down
+    @chromecast.sound_down
+    respond_to do |format|
+      format.js { render 'toggle_sound.js.erb'}
+    end
+  end
+
+  def sound_up
+    @chromecast.sound_down
+    respond_to do |format|
+      format.js { render 'toggle_sound.js.erb'}
+    end
+  end
+
+  def sound_off
+    @chromecast.sound_off
+    respond_to do |format|
+      format.js { render 'toggle_sound.js.erb'}
+    end
+  end
+
+  def sound_on
+    @chromecast.sound_off
     respond_to do |format|
       format.js { render 'toggle_sound.js.erb'}
     end
@@ -57,23 +79,15 @@ class MagicController < ApplicationController
   end
   
   def seek
-    # seek forwards or backwards
-    @chromecast.seek(params[:direction])
+    # seek ffwd or rewind
+    @chromecast.manual_seek(params[:direction])
   end
 
   # gets the time and updates our video row with the new time (so we can track usage of video)
   def time
     # get the time and update it
-	time = @chromecast.time
-	path = @chromecast.path
-	@video = current_user.videos.where(path: params[:path]).first
-	
-	return if @video.nil?
-	
-	unless time.nil?
-      @video.update(seek: @chromecast.time)
-	end
-	
+    @video = current_user.videos.where(path: @chromecast.path).first_or_create
+    @video.update(seek: @chromecast.time)
   end
 
   private
@@ -92,5 +106,4 @@ class MagicController < ApplicationController
   def video_params
     params.require(:video).permit(:id, :path, :seek, :title, :user_id)
   end
-
 end

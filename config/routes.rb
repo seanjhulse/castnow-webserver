@@ -2,11 +2,15 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'magic#movies'
-  post '/play/:title' => 'magic#play', as: 'play'
-  get '/pause/' => 'magic#play_pause', as: 'play_pause'
+  post '/cast/:title' => 'magic#cast', as: 'cast'
+  get '/play/' => 'magic#play', as: 'play'
+  get '/pause/' => 'magic#pause', as: 'pause'
   get '/stop' => 'magic#stop', as: 'stop'
   get '/seek/:direction' => 'magic#seek', as: 'seek'
-  get '/sound/' => 'magic#sound_toggle', as: 'sound_toggle'
+  get '/sound_on/' => 'magic#sound_on', as: 'sound_on'
+  get '/sound_off/' => 'magic#sound_off', as: 'sound_off'
+  get '/sound_down/' => 'magic#sound_down', as: 'sound_down'
+  get '/sound_up/' => 'magic#sound_up', as: 'sound_up'
   get '/time/' => 'magic#time', as: 'time'
   get '/show/:show/episodes/' => 'magic#episodes', as: 'episodes'
 
