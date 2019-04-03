@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   '''
   def current_user
     if session[:current_user_id]
-      User.includes(:videos).find(session[:current_user_id])
+	  User.includes(:videos).find(session[:current_user_id]) || nil
     else
       nil
     end

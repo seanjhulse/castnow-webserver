@@ -55,7 +55,7 @@ module MagicHelper
     "https://image.tmdb.org/t/p/w185/#{data['results'][0]['poster_path']}"
   end
 
-  def movie_big_poster(data)
+  def movie_original_poster(data)
     "https://image.tmdb.org/t/p/original/#{data['results'][0]['poster_path']}"
   end
 
