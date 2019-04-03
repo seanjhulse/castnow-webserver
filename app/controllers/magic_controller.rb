@@ -92,10 +92,5 @@ class MagicController < ApplicationController
   def video_params
     params.require(:video).permit(:id, :path, :seek, :title, :user_id)
   end
-  
-  def load_chromecast
-    # initialized in /initialiers/chrome_cast.rb
-    @chromecast = CHROMECAST
-  end
 
 end

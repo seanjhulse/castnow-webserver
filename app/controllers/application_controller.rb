@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
+  before_action :load_chromecast
+  
   '''
     Grabs the current user from the session_id. No authentication required yet
     because its all local host
@@ -34,5 +35,10 @@ class ApplicationController < ActionController::Base
     if !current_user
       redirect_to users_path
     end
+  end
+
+  def load_chromecast
+    # initialized in /initialiers/chrome_cast.rb
+    @chromecast = CHROMECAST
   end
 end
