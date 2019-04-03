@@ -17,14 +17,16 @@ class MagicController < ApplicationController
 
   def play
     # find an existing video record
-    @video = current_user.videos.where(path: params[:path]).first
+	@video = current_user.videos.where(title: params[:title]).first
+	@poster = params[:video][:poster]
     if @video.nil?
-      # create a new one if DNE
-      current_user.videos << Video.create(video_params)
+	  # create a new one if DNE
+	  @video = Video.create(video_params)
+      current_user.videos << @video
     end
 
-    # play movie on instance
-    @chromecast.play(path, @video.seek)
+	# play movie on instance
+    @chromecast.play(@video.path, @video.seek)
     
     respond_to do |format|
       format.js { render 'play.js.erb'}
@@ -61,18 +63,17 @@ class MagicController < ApplicationController
 
   # gets the time and updates our video row with the new time (so we can track usage of video)
   def time
-    # find an existing video record
-    @video = current_user.videos.where(path: params[:path]).first
-    if @video.nil?
-      # create a new record if DNE
-      current_user.videos << Video.create(video_params)
-    end
-    
     # get the time and update it
-    time = @chromecast.time
-    unless time.nil?
+	time = @chromecast.time
+	path = @chromecast.path
+	@video = current_user.videos.where(path: params[:path]).first
+	
+	return if @video.nil?
+	
+	unless time.nil?
       @video.update(seek: @chromecast.time)
-    end
+	end
+	
   end
 
   private
@@ -89,7 +90,7 @@ class MagicController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:id, :path, :seek, :user_id)
+    params.require(:video).permit(:id, :path, :seek, :title, :user_id)
   end
   
   def load_chromecast

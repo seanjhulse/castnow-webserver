@@ -5,29 +5,40 @@ class ChromeCast
   def initialize
     @command = []
     @playing = false
-    @time = nil
+	@time = nil
+	@path = nil
     Rails.logger.debug(Rainbow("ChromeCast initialized").blue)
   end
 
-  # play video from path
+  # start video from path
   def play(path, time=nil)
+	return if path == @path
+
     @command = ['screen', '-S', 'cast_session', '-X', 'quit']
 
     pid = run(@command)
     Process.waitpid(pid)
-
-    @command = ['screen', '-d', '-m', '-S', 'cast_session', 'castnow', '--seek', format_time(time)]
-    @command.push(path)
+	
+    @command = ['screen', '-d', '-m', '-S', 'cast_session', 'castnow', path]
     @playing = true
-
+	@path = path
     run(@command)
     Rails.logger.debug(Rainbow("Playing the video...").orange)
+  end
+  
+  def playing
+	@playing
+  end
+
+  def path
+	@path
   end
 
   def toggle
     @command = ['screen', '-S', 'cast_session', '-X', 'stuff', ' ']
     pid = run(@command)
 
+	
     # toggle playing state
     @playing = !@playing
 
@@ -41,10 +52,12 @@ class ChromeCast
 
   # stop playing the current video
   def stop
-    @command = ['screen', '-S', 'cast_session', '-X', 'stuff', 's']
+    @command = ['screen', '-S', 'cast_session', '-X', 'quit']
     pid = run(@command)
-    # set playing state to false
-    @playing = false
+
+	# set playing state to false
+	@playing = false
+	@path = false
     Rails.logger.debug(Rainbow("Attempting to stop video...").orange)
   end
 
@@ -66,17 +79,10 @@ class ChromeCast
 
   # custom time function in the chrome cast that sets the time to a valid DateTime
   def set_time
-    command = ['screen', '-S', 'cast_session', '-X', 'stuff', 'time']
-    Open3.popen3(*command) do |stdin, stdout, stderr, wait_thr|
-      read = stdout.read
-      if read.chomp == "No screen session found."
-        Rails.logger.debug(Rainbow("#{read}...").red)
-        return
-      end
-
-      @time = DateTime.parse(read)
-      Rails.logger.debug(Rainbow("Setting current time #{@time}...").orange)
-    end
+    @command = ['screen', '-S', 'cast_session', '-X', 'stuff', 'v']
+	pid = run(@command)
+    Process.waitpid(pid)
+	Rails.logger.debug(Rainbow("Setting current time #{pid}...").orange)
   end
 
   # forks a new background process to set the new time of the cast session

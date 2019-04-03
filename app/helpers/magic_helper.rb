@@ -4,20 +4,22 @@ module MagicHelper
   end
 
   def movie_json(query)
+	query = query.gsub(' ', '+')
     api_key = Rails.application.credentials.the_movie_db_key
     url = "https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&language=en-US&query=#{query}&page=1&include_adult=false"
-    movie = Rails.cache.redis.get(url)
+	movie = Rails.cache.redis.get(url)
     return JSON.parse(movie) unless movie.nil?
-
+	
     response = HTTParty.get(url)
     movie = JSON.parse(response.body)
-    return nil if movie.nil?
+	return nil if movie.nil? or movie['total_results'] == 0
 
     Rails.cache.redis.set(url, response.body)
     return movie
   end
 
   def show_json(query)
+	query = query.gsub(' ', '+')
     api_key = Rails.application.credentials.the_movie_db_key
     url = "https://api.themoviedb.org/3/search/tv?api_key=#{api_key}&language=en-US&query=#{query}&page=1&include_adult=false"
     show = Rails.cache.redis.get(url)
@@ -25,7 +27,7 @@ module MagicHelper
 
     response = HTTParty.get(url)
     show = JSON.parse(response.body)
-    return nil if show.nil?
+    return nil if show.nil? or movie['total_results'] == 0
     
     Rails.cache.redis.set(url, response.body)
     return show
@@ -51,6 +53,10 @@ module MagicHelper
 
   def movie_poster(data)
     "https://image.tmdb.org/t/p/w185/#{data['results'][0]['poster_path']}"
+  end
+
+  def movie_big_poster(data)
+    "https://image.tmdb.org/t/p/original/#{data['results'][0]['poster_path']}"
   end
 
   def movie_description(data)

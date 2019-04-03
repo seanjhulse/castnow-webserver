@@ -20,26 +20,31 @@
 	transform: translate(-50%, -50%);
 }
 .player-buttons {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	height: 50px;
-	background: black;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    background: transparent;
+    width: 100%;
+    padding: 1rem;
 }
 .player-button {
 	color: white;
 	display: none;
+	font-size: 40px;
+	margin-right: 1rem;
 }
 .player-button.active {
 	display: block;
 }
 .player-close-button {
 	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 1rem;
-	color: white;
+    top: 1rem;
+    right: 1rem;
+    padding: 1rem;
+    color: white;
+    font-size: 40px;
 }

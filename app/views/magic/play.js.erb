@@ -1,9 +1,9 @@
-let image = document.getElementById('player-image');
-let player = document.getElementById('player');
-let pauseButton = document.getElementById('player-pause-button');
-let playButton = document.getElementById('player-play-button');
+var image = document.getElementById('player-image');
+var player = document.getElementById('player');
+var pauseButton = document.getElementById('player-pause-button');
+var playButton = document.getElementById('player-play-button');
 
-image.src = <%= j @image %>;
+image.src = "<%= j @poster %>";
 player.classList.add('active');
 pauseButton.classList.add('active');
 playButton.classList.remove('active');

@@ -4,11 +4,22 @@
     <div class="movies">
       <% @movies.each_with_index do |movie, index| %>
         <% movie_data = movie_json(readable(movie)) %>
-        <% if movie_data and movie_data['results'] %>
+        <% if movie_data and movie_data['results'] and movie_data['results'][0] %>
           <div class="movie">
             <%= image_tag movie_poster(movie_data), class: "movie-poster" %>
             <div class="movie-play-button-container">
-              <%= fa_icon "play", class: "movie-play-button" %>
+				<%= link_to play_path(readable(movie), 
+				params: { 
+					video: { 
+						path: movie, 
+						user_id: current_user.id,
+						seek: "00:00:00",
+						poster: movie_original_poster(movie_data),
+						title: readable(movie)
+					} 
+				}), method: :post, remote: true do %>
+			  		<%= fa_icon "play", class: "movie-play-button" %>
+				<% end %>
             </div>
           </div>
         <% end %>
@@ -22,7 +33,7 @@
     <div class="shows">
       <% @shows.each_with_index do |show, index| %>
         <% show_data = show_json(readable(show)) %>
-        <% if show_data and show_data['results'] %>
+        <% if show_data and show_data['results'] and show_data['results'][0] %>
           <div class="show">
             <%= link_to episodes_path(show) do %>
               <%= image_tag show_poster(show_data), class: "movie-poster" %>
